@@ -5,11 +5,6 @@ import NeDB from 'nedb';
 import service from 'feathers-nedb';
 import hooks from './hooks';
 
-// const path = require('path');
-// const NeDB = require('nedb');
-// const service = require('feathers-nedb');
-// const hooks = require('./hooks');
-
 module.exports = function(){
   const app = this;
 
