@@ -1,10 +1,15 @@
 'use strict';
 
-const assert = require('assert');
-const app = require('../../../src/app');
+import chai from 'chai';
+import app from '../../../src/app';
+
+let expect = chai.expect;
+
 
 describe('user service', function() {
+
   it('registered the users service', () => {
-    assert.ok(app.service('users'));
+    expect(app.service('users')).not.to.be.undefined;
   });
+
 });

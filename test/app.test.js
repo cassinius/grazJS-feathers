@@ -1,10 +1,14 @@
 'use strict';
 
-const assert = require('assert');
-const request = require('request');
-const app = require('../src/app');
+import request from 'request';
+import app from '../src/app';
+import chai from 'chai';
+let expect = chai.expect;
+
+const ROOT_URL = 'http://localhost:3999';
 
 describe('Feathers application tests', function() {
+
   before(function(done) {
     this.server = app.listen(3999);
     this.server.once('listening', () => done());
@@ -14,38 +18,35 @@ describe('Feathers application tests', function() {
     this.server.close(done);
   });
 
-  it('starts and shows the index page', function(done) {
-    request('http://localhost:3999', function(err, res, body) {
-      assert.ok(body.indexOf('<html>') !== -1);
-      done(err);
-    });
-  });
 
-  describe('404', function() {
+  describe('404 on root page', function() {
+
     it('shows a 404 HTML page', function(done) {
       request({
-        url: 'http://localhost:3999/path/to/nowhere',
+        url: ROOT_URL,
         headers: {
           'Accept': 'text/html'
         }
       }, function(err, res, body) {
-        assert.equal(res.statusCode, 404);
-        assert.ok(body.indexOf('<html>') !== -1);
+        expect(res.statusCode).to.equal(404);
         done(err);
       });
     });
 
+
     it('shows a 404 JSON error without stack trace', function(done) {
       request({
-        url: 'http://localhost:3999/path/to/nowhere',
+        url: ROOT_URL,
         json: true
       }, function(err, res, body) {
-        assert.equal(res.statusCode, 404);
-        assert.equal(body.code, 404);
-        assert.equal(body.message, 'Page not found');
-        assert.equal(body.name, 'NotFound');
+        expect(res.statusCode).to.equal(404);
+        expect(body.code).to.equal(404);
+        expect(body.message).to.equal('Page not found');
+        expect(body.name).to.equal('NotFound');
         done(err);
       });
     });
+
   });
+
 });
