@@ -10,4 +10,7 @@ module.exports = function() {
   app.configure(authentication);
   app.configure(user);
   app.configure(messages);
+
+
+  console.log("Message service initialized.");
 };

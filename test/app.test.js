@@ -5,12 +5,15 @@ import app from '../src/app';
 import chai from 'chai';
 let expect = chai.expect;
 
-const ROOT_URL = 'http://localhost:3999';
+const HOST = "http://localhost";
+const PORT = 3999;
+
+const ROOT_URL = HOST + ":" + PORT;
 
 describe('Feathers application tests', function() {
 
   before(function(done) {
-    this.server = app.listen(3999);
+    this.server = app.listen(PORT);
     this.server.once('listening', () => done());
   });
 
