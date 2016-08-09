@@ -1,4 +1,5 @@
 'use strict';
+const chatroom = require('./chatroom');
 const messages = require('./messages');
 const authentication = require('./authentication');
 const user = require('./user');
@@ -13,4 +14,5 @@ module.exports = function() {
 
 
   console.log("Message service initialized.");
+  app.configure(chatroom);
 };
